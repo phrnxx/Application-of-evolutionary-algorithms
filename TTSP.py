@@ -3,9 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from deap import base, creator, tools, algorithms
-import tsp  # власний модуль (має бути в робочій директорії)
+import tsp  
 
-# Налаштування параметрів
 TSP_NAME = "bayg29"
 POPULATION_SIZE = 300
 P_CROSSOVER = 0.9
@@ -14,11 +13,9 @@ MAX_GENERATIONS = 200
 RANDOM_SEED = 42
 random.seed(RANDOM_SEED)
 
-# Отримуємо кількість міст
 problem_instance = tsp.TravelingSalesmanProblem(TSP_NAME)
-num_cities = len(problem_instance.locations)  # Тепер коректно отримуємо кількість міст
+num_cities = len(problem_instance.locations)  
 
-# Ініціалізація DEAP
 creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
 creator.create("Individual", list, fitness=creator.FitnessMin)
 
@@ -27,7 +24,6 @@ toolbox.register("randomOrder", random.sample, range(num_cities), num_cities)
 toolbox.register("individualCreator", tools.initIterate, creator.Individual, toolbox.randomOrder)
 toolbox.register("populationCreator", tools.initRepeat, list, toolbox.individualCreator)
 
-# Функція пристосованості
 def tspDistance(individual):
     return problem_instance.getTotalDistance(individual),
 
@@ -36,7 +32,6 @@ toolbox.register("select", tools.selTournament, tournsize=3)
 toolbox.register("mate", tools.cxOrdered)
 toolbox.register("mutate", tools.mutShuffleIndexes, indpb=1.0 / num_cities)
 
-# Генетичний алгоритм
 population = toolbox.populationCreator(n=POPULATION_SIZE)
 hof = tools.HallOfFame(1)
 stats = tools.Statistics(lambda ind: ind.fitness.values)
@@ -48,7 +43,6 @@ population, logbook = algorithms.eaSimple(
     ngen=MAX_GENERATIONS, stats=stats, halloffame=hof, verbose=True
 )
 
-# Візуалізація
 plt.figure(1)
 problem_instance.plotData(hof.items[0])
 
