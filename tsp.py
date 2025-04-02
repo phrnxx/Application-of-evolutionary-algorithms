@@ -4,12 +4,11 @@ import numpy as np
 class TravelingSalesmanProblem:
     def __init__(self, name):
         self.name = name
-        self.locations = self.load_data(name)  # Загрузка координат городов
-
+        self.locations = self.load_data(name) 
+        
     def load_data(self, name):
-        # Пример данных для bayg29 (можно заменить на реальные)
-        return np.random.rand(29, 2) * 100  # Случайные координаты
-
+        return np.random.rand(29, 2) * 100 
+        
     def getTotalDistance(self, individual):
         distance = 0
         for i in range(len(individual)):
