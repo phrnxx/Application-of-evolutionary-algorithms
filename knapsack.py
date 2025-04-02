@@ -4,11 +4,9 @@ class Knapsack01Problem:
     """This class encapsulates the Knapsack 0-1 Problem from RosettaCode.org
     """
     def __init__(self):
-        # initialize instance variables:
         self.items = []
         self.maxCapacity = 0
         
-        # initialize the data:
         self.__initData()
         
     def __initData(self):
@@ -39,7 +37,7 @@ class Knapsack01Problem:
             {"name": "book", "weight": 30, "value": 10}
         ]
         
-        self.maxCapacity = 400  # decagrams (4kg)
+        self.maxCapacity = 400  
 
     def __len__(self):
         """
@@ -62,8 +60,7 @@ class Knapsack01Problem:
                     totalWeight += item["weight"]
                     totalValue += item["value"]
                 else:
-                    pass  # skip if overweight
-        
+                    pass  
         return totalValue
     
     def printItems(self, zeroOneList):
@@ -87,7 +84,6 @@ class Knapsack01Problem:
         print(f"- Total weight = {totalWeight}, Total value = {totalValue}")
 
 
-# Пример использования (можно удалить в рабочей версии):
 if __name__ == "__main__":
     knapsack = Knapsack01Problem()
     randomSolution = np.random.randint(2, size=len(knapsack))
